@@ -53,22 +53,28 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { useTaskStore } from "../../stores/taskStore";
 
-const task = ref({
+const taskStore = useTaskStore();
+const router = useRouter();
+
+let task = ref({
   title: "",
   description: "",
   status: "pending",
   due_date: "",
 });
 
-const submitForm = () => {
+const submitForm = async () => {
   console.log("Task submitted:", task.value);
-  task.value = {
-    title: "",
-    description: "",
-    status: "pending",
-    due_date: "",
-  };
+  try {
+    await taskStore.createTask(task.value);
+
+    router.push("/");
+  } catch (error) {
+    console.error(error);
+  }
 };
 </script>
 
