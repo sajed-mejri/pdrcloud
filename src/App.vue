@@ -1,5 +1,13 @@
 <script setup lang="ts">
-/* script */
+import { RouterLink, RouterView } from "vue-router";
+import { useAuthStore } from "./stores/auth";
+
+const authStore = useAuthStore();
+
+const handleLogout = async () => {
+  console.log(authStore.isAuthenticated);
+  await authStore.logout();
+};
 </script>
 
 <template>
@@ -7,15 +15,15 @@
     <div class="wrapper d-flex justify-content-between">
       <b-nav>
         <b-nav-item><RouterLink to="/">Home</RouterLink></b-nav-item>
-        <b-nav-item>
+        <b-nav-item v-if="authStore.isAuthenticated">
           <RouterLink to="/about">About</RouterLink>
         </b-nav-item>
       </b-nav>
       <b-nav>
-        <b-nav-item>
+        <b-nav-item v-if="!authStore.isAuthenticated">
           <RouterLink to="/login">Login</RouterLink>
         </b-nav-item>
-        <b-nav-item>
+        <b-nav-item v-if="authStore.isAuthenticated" @click="handleLogout()">
           <RouterLink to="/login">Logout</RouterLink>
           <b-icon icon="arrow-up"></b-icon>
         </b-nav-item>
@@ -27,5 +35,5 @@
 </template>
 
 <style scoped>
-/* styles */
+/* Your existing styles */
 </style>
