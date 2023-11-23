@@ -6,7 +6,7 @@ import CardComponent from "../components/cards/CardComponent.vue";
 <template>
   <div class="wrapper">
     <b-container class="mb-3 d-flex justify-content-end">
-      <IconButtonComponent :link="'/about/id'" :likes="42" />
+      <IconButtonComponent :link="'/create'" :likes="42" />
     </b-container>
     <b-container class="mb-3">
       <b-row>

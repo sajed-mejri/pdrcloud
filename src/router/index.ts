@@ -18,9 +18,9 @@ const routes: Array<RouteRecordRaw> = [
     component: HomeView,
   },
   {
-    path: "/about/:id",
-    name: "about",
-    component: () => import("../views/AboutView.vue"),
+    path: "/create/",
+    name: "create",
+    component: () => import("../views/CreateTaskView.vue"),
   },
 ];
 

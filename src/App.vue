@@ -33,4 +33,7 @@ const handleLogout = async () => {
 
 <style scoped>
 /* Your existing styles */
+body {
+  overflow-x: hidden;
+}
 </style>
