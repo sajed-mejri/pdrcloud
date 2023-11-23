@@ -3,10 +3,16 @@
 </script>
 
 <template>
-  <b-card title="title" img-src="url" img-alt="title" class="shadow mb-5">
+  <b-card title="title" class="shadow mb-5">
+    <template #header>
+      <h6 class="mb-0">Status</h6>
+    </template>
     <b-card-text>title</b-card-text>
-    <b-button> Add favorite </b-button>
-    <b-button> Remove favorite </b-button>
+    <b-button> Read More... </b-button>
+    <b-button> Delete Task </b-button>
+    <template #footer>
+      <em>Due date</em>
+    </template>
   </b-card>
 </template>
 
