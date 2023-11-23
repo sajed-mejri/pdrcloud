@@ -41,7 +41,11 @@
         label-cols="4"
         class="mb-3"
       >
-        <b-form-input v-model="task.due_date" type="date"></b-form-input>
+        <b-form-input
+          v-model="task.due_date"
+          type="date"
+          required
+        ></b-form-input>
       </b-form-group>
 
       <div class="d-flex justify-content-end">
