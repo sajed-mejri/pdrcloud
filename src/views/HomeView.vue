@@ -5,7 +5,9 @@ import CardComponent from "../components/cards/CardComponent.vue";
 <template>
   <div class="wrapper">
     <b-container class="mb-3 d-flex justify-content-end">
-      <b-button>Create Task</b-button>
+      <b-button class="circle-btn" variant="primary">
+        <BIconPlus font-scale="4" />
+      </b-button>
     </b-container>
     <b-container class="mb-3">
       <b-row>
@@ -24,5 +26,13 @@ import CardComponent from "../components/cards/CardComponent.vue";
 <style lang="scss" scoped>
 .wrapper {
   padding: 16px;
+}
+.circle-btn {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
