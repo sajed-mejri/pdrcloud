@@ -9,7 +9,7 @@ const authStore = useAuthStore();
     <template #header>
       <h6 class="mb-0">Status</h6>
     </template>
-    <b-card-text>title</b-card-text>
+    <b-card-text>description</b-card-text>
     <div
       class="d-flex justify-content-between align-items-end mt-auto"
       v-if="authStore.isAuthenticated"
