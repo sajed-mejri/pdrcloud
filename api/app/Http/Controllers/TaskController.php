@@ -39,5 +39,18 @@ class TaskController extends Controller
 
         return response()->json(['tasks' => $tasks]);
     }
+
+    public function updateStatus(Request $request, Task $task)
+    {
+        $request->validate([
+            'status' => 'required|in:pending,completed',
+        ]);
+
+        $task->update([
+            'status' => $request->input('status'),
+        ]);
+
+        return response()->json(['message' => 'Task status updated successfully', 'task' => $task]);
+    }
 }
 

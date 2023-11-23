@@ -1,25 +1,41 @@
 <script setup lang="ts">
-import { defineProps } from "vue";
+import { defineProps, watch } from "vue";
 import { useAuthStore } from "../../stores/auth";
 import { useTaskStore } from "../../stores/taskStore";
 import { Task } from "../../stores/taskStore";
+import { ref } from "vue";
 
-const authStore = useAuthStore();
-
-// eslint-disable-next-line vue/require-prop-types, vue/no-setup-props-destructure
+// eslint-disable-next-line vue/no-setup-props-destructure
 const { task } = defineProps(["task" as Task]);
-
+const authStore = useAuthStore();
 const taskStore = useTaskStore();
+
+const localStatus = ref(task.status);
+
+watch(
+  () => task.status,
+  (newStatus) => {
+    localStatus.value = newStatus;
+  }
+);
 
 const removeTask = async () => {
   try {
     const taskId = task.id;
-
     await taskStore.deleteTask(taskId);
-
     console.log("Task removed");
   } catch (error) {
     console.error("Error removing task:", error);
+  }
+};
+
+const updateTaskStatus = async () => {
+  try {
+    const taskId = task.id;
+    await taskStore.updateTaskStatus(taskId, localStatus.value);
+    console.log("Task status updated");
+  } catch (error) {
+    console.error("Error updating task status:", error);
   }
 };
 </script>
@@ -27,7 +43,12 @@ const removeTask = async () => {
 <template>
   <b-card :title="task.title" class="shadow mb-5">
     <template #header>
-      <h6 class="mb-0">{{ task.status }}</h6>
+      <b-form-group id="status" label-for="status" label-cols="4" class="mb-2">
+        <b-form-select v-model="localStatus" @change="updateTaskStatus">
+          <option value="pending">Pending</option>
+          <option value="completed">Completed</option>
+        </b-form-select>
+      </b-form-group>
     </template>
     <b-card-text>{{ task.description }}</b-card-text>
     <div

@@ -69,6 +69,7 @@ export const useTaskStore = defineStore({
         console.error("Error creating task:", error);
       }
     },
+
     async deleteTask(taskId: number) {
       try {
         const baseUrl = useApiStore().getBaseUrl;
@@ -107,6 +108,51 @@ export const useTaskStore = defineStore({
         }
       } catch (error) {
         console.error("Error deleting task:", error);
+      }
+    },
+
+    async updateTaskStatus(taskId: number, newStatus: string) {
+      try {
+        const baseUrl = useApiStore().getBaseUrl;
+        const authStore = useAuthStore();
+
+        if (!authStore.isAuthenticated) {
+          console.error("User is not authenticated");
+          return;
+        }
+
+        const token = authStore.getToken();
+
+        if (!token) {
+          console.error("No token available");
+          return;
+        }
+
+        const apiUrl = `${baseUrl}/tasks/${taskId}/update-status`;
+
+        const response = await axios.put(
+          apiUrl,
+          { status: newStatus },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (response.status === 200) {
+          console.log("Task status updated successfully");
+          this.fetchTasks();
+        } else {
+          console.error(
+            "Failed to update task status:",
+            response.status,
+            response.statusText
+          );
+        }
+      } catch (error) {
+        console.error("Error updating task status:", error);
       }
     },
   },

@@ -28,7 +28,6 @@ onMounted(() => {
           md="6"
           sm="12"
         >
-          <!-- {{ task.title }} -->
           <CardComponent :task="task" />
         </b-col>
       </b-row>
