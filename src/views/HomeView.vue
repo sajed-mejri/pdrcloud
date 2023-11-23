@@ -1,13 +1,12 @@
 <script setup lang="ts">
+import IconButtonComponent from "@/components/buttons/IconButtonComponent.vue";
 import CardComponent from "../components/cards/CardComponent.vue";
 </script>
 
 <template>
   <div class="wrapper">
     <b-container class="mb-3 d-flex justify-content-end">
-      <b-button class="circle-btn" variant="primary">
-        <BIconPlus font-scale="4" />
-      </b-button>
+      <IconButtonComponent :link="'/about/id'" :likes="42" />
     </b-container>
     <b-container class="mb-3">
       <b-row>
@@ -23,16 +22,8 @@ import CardComponent from "../components/cards/CardComponent.vue";
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .wrapper {
   padding: 16px;
-}
-.circle-btn {
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 </style>
