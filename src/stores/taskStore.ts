@@ -15,16 +15,21 @@ export const useTaskStore = defineStore({
     async fetchTasks() {
       try {
         const baseUrl = useApiStore().getBaseUrl;
-
         const response = await axios.get(`${baseUrl}/tasks`);
-        const tasks = response.data.map((task: Task) => ({
-          ...task,
-        }));
-        this.setTasks(tasks);
+
+        const tasks = response.data.tasks;
+
+        if (Array.isArray(tasks)) {
+          this.setTasks(tasks);
+          console.log("Tasks:", tasks);
+        } else {
+          console.error("Invalid response format. Expected an array.");
+        }
       } catch (error) {
         console.error("Error fetching tasks:", error);
       }
     },
+
     async createTask(taskData: TaskData) {
       try {
         const baseUrl = useApiStore().getBaseUrl;

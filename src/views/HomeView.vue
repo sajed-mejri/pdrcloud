@@ -1,6 +1,17 @@
 <script setup lang="ts">
 import IconButtonComponent from "@/components/buttons/IconButtonComponent.vue";
 import CardComponent from "../components/cards/CardComponent.vue";
+
+// import { useAuthStore } from "@/stores/auth";
+import { useTaskStore } from "@/stores/taskStore";
+import { onMounted } from "vue";
+
+// const authStore = useAuthStore();
+const taskStore = useTaskStore();
+
+onMounted(() => {
+  taskStore.fetchTasks();
+});
 </script>
 
 <template>
@@ -10,8 +21,15 @@ import CardComponent from "../components/cards/CardComponent.vue";
     </b-container>
     <b-container class="mb-3">
       <b-row>
-        <b-col>
-          <CardComponent />
+        <b-col
+          v-for="task in taskStore.tasks"
+          :key="task.id"
+          lg="4"
+          md="6"
+          sm="12"
+        >
+          <!-- {{ task.title }} -->
+          <CardComponent :task="task" />
         </b-col>
       </b-row>
     </b-container>
