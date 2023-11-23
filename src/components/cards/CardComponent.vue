@@ -1,5 +1,7 @@
 <script setup lang="ts">
-/* script/ */
+import { useAuthStore } from "../../stores/auth";
+
+const authStore = useAuthStore();
 </script>
 
 <template>
@@ -8,9 +10,12 @@
       <h6 class="mb-0">Status</h6>
     </template>
     <b-card-text>title</b-card-text>
-    <div class="d-flex justify-content-between align-items-end mt-auto">
+    <div
+      class="d-flex justify-content-between align-items-end mt-auto"
+      v-if="authStore.isAuthenticated"
+    >
       <RouterLink to="/about">Read More...</RouterLink>
-      <b-link>Delete Task</b-link>
+      <b-link v-if="authStore.isAuthenticated">Delete Task</b-link>
     </div>
     <template #footer>
       <em>Due date</em>

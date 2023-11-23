@@ -15,9 +15,6 @@ const handleLogout = async () => {
     <div class="wrapper d-flex justify-content-between">
       <b-nav>
         <b-nav-item><RouterLink to="/">Home</RouterLink></b-nav-item>
-        <b-nav-item v-if="authStore.isAuthenticated">
-          <RouterLink to="/about">About</RouterLink>
-        </b-nav-item>
       </b-nav>
       <b-nav>
         <b-nav-item v-if="!authStore.isAuthenticated">
