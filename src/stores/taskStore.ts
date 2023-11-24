@@ -30,6 +30,43 @@ export const useTaskStore = defineStore({
       }
     },
 
+    async fetchTaskById(taskId: number) {
+      try {
+        const baseUrl = useApiStore().getBaseUrl;
+        const authStore = useAuthStore();
+
+        if (!authStore.isAuthenticated) {
+          console.error("User is not authenticated");
+          return;
+        }
+
+        const token = authStore.getToken();
+
+        if (!token) {
+          console.error("No token available");
+          return;
+        }
+
+        const apiUrl = `${baseUrl}/tasks/${taskId}`;
+
+        const response = await axios.get(apiUrl, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const task = response.data.task;
+
+        if (task) {
+          console.log("Task by ID:", task);
+        } else {
+          console.error("Task not found");
+        }
+      } catch (error) {
+        console.error("Error fetching task by ID:", error);
+      }
+    },
+
     async createTask(taskData: TaskData) {
       try {
         const baseUrl = useApiStore().getBaseUrl;
