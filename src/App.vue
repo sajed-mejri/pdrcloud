@@ -22,8 +22,8 @@ const handleLogout = async () => {
         <b-nav-item v-if="!authStore.isAuthenticated">
           <RouterLink class="detail-btn" to="/login">Login</RouterLink>
         </b-nav-item>
-        <b-nav-item v-if="authStore.isAuthenticated" @click="handleLogout()">
-          <RouterLink class="detail-btn" to="/login">Logout</RouterLink>
+        <b-nav-item v-if="authStore.isAuthenticated" @click="handleLogout">
+          <span class="detail-btn">Logout</span>
           <b-icon icon="arrow-up"></b-icon>
         </b-nav-item>
       </b-nav>
