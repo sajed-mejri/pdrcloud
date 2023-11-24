@@ -7,6 +7,7 @@ export const useTaskStore = defineStore({
   id: "task",
   state: () => ({
     tasks: [] as Task[],
+    fetchedTask: null as Task | null,
   }),
   actions: {
     setTasks(tasks: Task[]) {
@@ -58,13 +59,23 @@ export const useTaskStore = defineStore({
         const task = response.data.task;
 
         if (task) {
-          console.log("Task by ID:", task);
+          task.created_at = new Date(task.created_at).toLocaleString();
+          this.setFetchedTask(task);
+          console.log("Task by ID:", this.getFetchedTask());
         } else {
           console.error("Task not found");
         }
       } catch (error) {
         console.error("Error fetching task by ID:", error);
       }
+    },
+
+    setFetchedTask(task: Task | null) {
+      this.fetchedTask = task;
+    },
+
+    getFetchedTask(): Task | null {
+      return this.fetchedTask;
     },
 
     async createTask(taskData: TaskData) {
@@ -201,6 +212,7 @@ export interface Task {
   description: string;
   status: string;
   due_date: string;
+  created_at: string;
 }
 
 export interface TaskData {
