@@ -65,7 +65,10 @@ const updateTaskStatus = async () => {
       class="d-flex justify-content-between align-items-end mt-auto"
       v-if="authStore.isAuthenticated"
     >
-      <RouterLink class="detail-btn" to="/about/1">Read More...</RouterLink>
+      <RouterLink class="detail-btn" :to="{ path: '/about/' + task.id }"
+        >Read More...</RouterLink
+      >
+
       <b-link
         class="detail-btn"
         v-if="authStore.isAuthenticated"

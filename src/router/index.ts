@@ -22,6 +22,11 @@ const routes: Array<RouteRecordRaw> = [
     name: "create",
     component: () => import("../views/CreateTaskView.vue"),
   },
+  {
+    path: "/about/:id",
+    name: "about",
+    component: () => import("../views/AboutView.vue"),
+  },
 ];
 
 const router = createRouter({
