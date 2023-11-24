@@ -43,11 +43,21 @@ const updateTaskStatus = async () => {
 <template>
   <b-card :title="task.title" class="shadow mb-5">
     <template #header>
-      <b-form-group id="status" label-for="status" label-cols="4" class="mb-2">
-        <b-form-select v-model="localStatus" @change="updateTaskStatus">
+      <b-form-group id="status" label-for="status" class="mb-2">
+        <!-- <b-form-select v-model="localStatus" @change="updateTaskStatus">
           <option value="pending">Pending</option>
           <option value="completed">Completed</option>
-        </b-form-select>
+        </b-form-select> -->
+        <b-form-checkbox
+          id="status"
+          v-model="localStatus"
+          name="status"
+          value="completed"
+          unchecked-value="pending"
+          @change="updateTaskStatus"
+        >
+          {{ localStatus }}
+        </b-form-checkbox>
       </b-form-group>
     </template>
     <b-card-text>{{ task.description }}</b-card-text>
@@ -55,8 +65,11 @@ const updateTaskStatus = async () => {
       class="d-flex justify-content-between align-items-end mt-auto"
       v-if="authStore.isAuthenticated"
     >
-      <RouterLink to="/about">Read More...</RouterLink>
-      <b-link v-if="authStore.isAuthenticated" @click="removeTask"
+      <RouterLink class="detail-btn" to="/about/1">Read More...</RouterLink>
+      <b-link
+        class="detail-btn"
+        v-if="authStore.isAuthenticated"
+        @click="removeTask"
         >Delete Task</b-link
       >
     </div>
@@ -68,8 +81,8 @@ const updateTaskStatus = async () => {
 
 <style lang="scss" scoped>
 .card {
-  background-color: whitesmoke;
-
+  color: white;
+  background-color: hsla(215, 39%, 50%, 0.74);
   .d-flex {
     margin-top: 8px;
   }
