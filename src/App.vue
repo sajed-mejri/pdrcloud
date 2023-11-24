@@ -1,6 +1,16 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from "vue-router";
 import { useAuthStore } from "./stores/auth";
+import { ref } from "vue";
+
+import i18n from "./i18n";
+
+const currentLanguage = ref<"en" | "gr">("en");
+
+const toggleLanguage = () => {
+  currentLanguage.value = currentLanguage.value === "en" ? "gr" : "en";
+  i18n.global.locale = currentLanguage.value as "en";
+};
 
 const authStore = useAuthStore();
 console.log(authStore.isAuthenticated);
@@ -15,7 +25,9 @@ const handleLogout = async () => {
     <div class="wrapper d-flex justify-content-between">
       <b-nav>
         <b-nav-item v-if="authStore.isAuthenticated"
-          ><RouterLink class="detail-btn" to="/">Home</RouterLink></b-nav-item
+          ><RouterLink class="detail-btn" to="/">{{
+            $i18n.t("home")
+          }}</RouterLink></b-nav-item
         >
       </b-nav>
       <b-nav>
@@ -29,6 +41,7 @@ const handleLogout = async () => {
       </b-nav>
     </div>
   </header>
+  <button @click="toggleLanguage">{{ currentLanguage }}</button>
   <!-- eslint-disable vue/no-multiple-template-root -->
   <RouterView />
 </template>
