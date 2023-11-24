@@ -2,24 +2,46 @@
 import IconButtonComponent from "@/components/buttons/IconButtonComponent.vue";
 import CardComponent from "../components/cards/CardComponent.vue";
 
-// import { useAuthStore } from "@/stores/auth";
 import { useTaskStore } from "@/stores/taskStore";
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 
-// const authStore = useAuthStore();
 const taskStore = useTaskStore();
+const selectedStatus = ref("All");
 
 onMounted(() => {
   taskStore.fetchTasks();
 });
+
+const filterTasks = (status: string) => {
+  selectedStatus.value = status;
+  if (status === "All") {
+    taskStore.fetchTasks();
+  } else {
+    taskStore.getByStatus(status);
+  }
+};
 </script>
 
 <template>
   <div class="wrapper">
     <b-container class="mb-3 d-flex justify-content-end">
-      <IconButtonComponent :link="'/create'" :likes="42" />
+      <div class="mt-3">
+        <b-button-group size="sm">
+          <IconButtonComponent :link="'/create'" type="create" />
+        </b-button-group>
+      </div>
     </b-container>
     <b-container class="mb-3">
+      <b-dropdown id="filter" :text="'Filter: ' + selectedStatus" class="m-2">
+        <b-dropdown-item @click="filterTasks('All')">All</b-dropdown-item>
+        <b-dropdown-item @click="filterTasks('pending')"
+          >Pending</b-dropdown-item
+        >
+        <b-dropdown-item @click="filterTasks('completed')"
+          >Completed</b-dropdown-item
+        >
+      </b-dropdown>
+
       <b-row>
         <b-col
           v-for="task in taskStore.tasks"

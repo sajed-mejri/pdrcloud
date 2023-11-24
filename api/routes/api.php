@@ -32,6 +32,7 @@ Route::post('/register', [AuthController::class, 'register']);
 
 Route::get('/tasks', [TaskController::class, 'getAll']);
 Route::get('/tasks/{id}', [TaskController::class, 'getById']);
+Route::get('/tasks/status/{status}', [TaskController::class, 'getByStatus']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/tasks', [TaskController::class, 'create']);
