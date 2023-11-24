@@ -52,5 +52,16 @@ class TaskController extends Controller
 
         return response()->json(['message' => 'Task status updated successfully', 'task' => $task]);
     }
+
+    public function getById($id)
+    {
+        $task = Task::find($id);
+
+        if (!$task) {
+            return response()->json(['error' => 'Task not found'], 404);
+        }
+
+        return response()->json(['task' => $task]);
+    }
 }
 

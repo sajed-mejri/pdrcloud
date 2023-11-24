@@ -31,6 +31,7 @@ Route::middleware([
 Route::post('/register', [AuthController::class, 'register']);
 
 Route::get('/tasks', [TaskController::class, 'getAll']);
+Route::get('/tasks/{id}', [TaskController::class, 'getById']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/tasks', [TaskController::class, 'create']);
