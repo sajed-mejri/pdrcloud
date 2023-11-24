@@ -3,7 +3,7 @@ import { RouterLink, RouterView } from "vue-router";
 import { useAuthStore } from "./stores/auth";
 
 const authStore = useAuthStore();
-
+console.log(authStore.isAuthenticated);
 const handleLogout = async () => {
   console.log(authStore.isAuthenticated);
   await authStore.logout();

@@ -2,15 +2,16 @@ import { defineStore } from "pinia";
 import axios from "axios";
 import { useApiStore } from "./api";
 
+const TOKEN_KEY = "accessToken";
+
 export const useAuthStore = defineStore("auth", {
   state: () => ({
     user: null as User | null,
-    accessToken: null as string | null,
-    isAuthenticated: false,
+    accessToken: localStorage.getItem(TOKEN_KEY) || null,
   }),
 
   getters: {
-    isAuthenticated: (state) => !!state.user,
+    isAuthenticated: (state) => !!state.accessToken,
   },
 
   actions: {
@@ -21,8 +22,29 @@ export const useAuthStore = defineStore("auth", {
     clearUser() {
       this.user = null;
     },
+
     getToken(): string | null {
-      return this.accessToken;
+      if (this.accessToken) {
+        return this.accessToken;
+      }
+
+      const storedToken = localStorage.getItem(TOKEN_KEY);
+      if (storedToken) {
+        this.accessToken = storedToken;
+        return storedToken;
+      }
+
+      return null;
+    },
+
+    setToken(token: string) {
+      this.accessToken = token;
+      localStorage.setItem(TOKEN_KEY, token);
+    },
+
+    removeToken() {
+      this.accessToken = null;
+      localStorage.removeItem(TOKEN_KEY);
     },
 
     async login({ email, password }: { email: string; password: string }) {
@@ -35,8 +57,8 @@ export const useAuthStore = defineStore("auth", {
 
         if (response.status === 200) {
           const data = response.data;
-          this.user = data.user;
-          this.accessToken = data.token;
+          this.setUser(data.user);
+          this.setToken(data.token);
           console.log(data.token);
         } else {
           console.error("Login failed");
@@ -66,7 +88,7 @@ export const useAuthStore = defineStore("auth", {
         if (response.status === 200) {
           const data = response.data;
           this.user = data.user;
-          this.accessToken = data.token;
+          this.setToken(data.token);
         } else {
           console.error("Registration failed");
         }
@@ -93,8 +115,9 @@ export const useAuthStore = defineStore("auth", {
         );
 
         if (response.status === 200) {
-          this.user = null;
-          this.accessToken = null;
+          this.clearUser();
+          this.removeToken();
+
           console.log("Successfully logged out");
         } else {
           console.error("Logout failed");
