@@ -2,7 +2,7 @@
 import CreateFormComponent from "../components/forms/CreateFormComponent.vue";
 </script>
 <template>
-  <b-container class="div">
+  <b-container class="mt-2">
     <b-row>
       <b-col md="8" lg="8">
         <b-container class="wrapper">

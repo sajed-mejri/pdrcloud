@@ -32,16 +32,19 @@ const handleLogout = async () => {
       </b-nav>
       <b-nav>
         <b-nav-item v-if="!authStore.isAuthenticated">
-          <RouterLink class="detail-btn" to="/login">Login</RouterLink>
+          <RouterLink class="detail-btn" to="/login">{{
+            $i18n.t("login")
+          }}</RouterLink>
         </b-nav-item>
         <b-nav-item v-if="authStore.isAuthenticated" @click="handleLogout">
-          <span class="detail-btn">Logout</span>
-          <b-icon icon="arrow-up"></b-icon>
+          <span class="detail-btn">{{ $i18n.t("logout") }}</span>
+        </b-nav-item>
+        <b-nav-item @click="toggleLanguage">
+          <span class="detail-btn">{{ currentLanguage }}</span>
         </b-nav-item>
       </b-nav>
     </div>
   </header>
-  <button @click="toggleLanguage">{{ currentLanguage }}</button>
   <!-- eslint-disable vue/no-multiple-template-root -->
   <RouterView />
 </template>
