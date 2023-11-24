@@ -8,6 +8,11 @@
       <b-row>
         <b-col md="8" lg="8">
           <b-card title="View Task:" class="shadow">
+            <template #header>
+              <p v-if="task">
+                <b-badge>{{ task.status }}</b-badge>
+              </p>
+            </template>
             <b-container>
               <b-row>
                 <b-col sm="6" md="6" lg="8">
@@ -15,7 +20,6 @@
                   <p v-if="task">Description: {{ task.description }}</p>
                 </b-col>
                 <b-col sm="6" md="6" lg="4" class="mt-4 mt-sm-0">
-                  <p v-if="task">Status: {{ task.status }}</p>
                   <p v-if="task">Due Date: {{ task.due_date }}</p>
                   <p v-if="task">Created At: {{ task.created_at }}</p></b-col
                 >

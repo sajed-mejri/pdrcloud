@@ -56,7 +56,6 @@ const updateTaskStatus = async () => {
         </b-form-checkbox>
       </b-form-group>
     </template>
-    <b-card-text>{{ task.description }}</b-card-text>
     <div
       class="d-flex justify-content-between align-items-end mt-auto"
       v-if="authStore.isAuthenticated"

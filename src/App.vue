@@ -15,15 +15,15 @@ const handleLogout = async () => {
     <div class="wrapper d-flex justify-content-between">
       <b-nav>
         <b-nav-item v-if="authStore.isAuthenticated"
-          ><RouterLink to="/">Home</RouterLink></b-nav-item
+          ><RouterLink class="detail-btn" to="/">Home</RouterLink></b-nav-item
         >
       </b-nav>
       <b-nav>
         <b-nav-item v-if="!authStore.isAuthenticated">
-          <RouterLink to="/login">Login</RouterLink>
+          <RouterLink class="detail-btn" to="/login">Login</RouterLink>
         </b-nav-item>
         <b-nav-item v-if="authStore.isAuthenticated" @click="handleLogout()">
-          <RouterLink to="/login">Logout</RouterLink>
+          <RouterLink class="detail-btn" to="/login">Logout</RouterLink>
           <b-icon icon="arrow-up"></b-icon>
         </b-nav-item>
       </b-nav>
@@ -35,6 +35,10 @@ const handleLogout = async () => {
 
 <style scoped>
 /* Your existing styles */
+header {
+  color: white;
+  background-color: hsla(215, 39%, 50%, 0.74);
+}
 body {
   overflow-x: hidden;
 }
