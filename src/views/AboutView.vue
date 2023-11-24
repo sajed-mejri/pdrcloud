@@ -22,6 +22,7 @@
               </b-row></b-container
             >
             <div v-if="error" class="mt-2">Error: {{ error }}</div>
+            <div v-if="task === null" class="mt-2">Task not found</div>
           </b-card>
         </b-col>
         <b-col md="4" lg="4">

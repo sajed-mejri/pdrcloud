@@ -44,10 +44,6 @@ const updateTaskStatus = async () => {
   <b-card :title="task.title" class="shadow mb-5">
     <template #header>
       <b-form-group id="status" label-for="status" class="mb-2">
-        <!-- <b-form-select v-model="localStatus" @change="updateTaskStatus">
-          <option value="pending">Pending</option>
-          <option value="completed">Completed</option>
-        </b-form-select> -->
         <b-form-checkbox
           id="status"
           v-model="localStatus"
@@ -56,7 +52,7 @@ const updateTaskStatus = async () => {
           unchecked-value="pending"
           @change="updateTaskStatus"
         >
-          {{ localStatus }}
+          <b-badge>{{ localStatus }}</b-badge>
         </b-form-checkbox>
       </b-form-group>
     </template>
