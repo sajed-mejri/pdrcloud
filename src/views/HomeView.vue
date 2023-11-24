@@ -4,9 +4,13 @@ import CardComponent from "../components/cards/CardComponent.vue";
 
 import { useTaskStore } from "@/stores/taskStore";
 import { onMounted, ref } from "vue";
+import { useAuthStore } from "@/stores/auth";
 
 const taskStore = useTaskStore();
 const selectedStatus = ref("All");
+
+const authStore = useAuthStore();
+console.log(authStore.isAuthenticated);
 
 onMounted(() => {
   taskStore.fetchTasks();
@@ -23,7 +27,7 @@ const filterTasks = (status: string) => {
 </script>
 
 <template>
-  <div class="wrapper">
+  <div class="wrapper" v-if="authStore.isAuthenticated">
     <b-container class="mb-3 d-flex justify-content-end">
       <div class="mt-3">
         <b-button-group size="sm">

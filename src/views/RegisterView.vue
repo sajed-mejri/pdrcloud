@@ -34,18 +34,21 @@ const register = async () => {
           class="mb-3"
           placeholder="Name"
           type="text"
+          required
         ></b-form-input>
         <b-form-input
           v-model="email"
           class="mb-3"
           placeholder="Email"
           type="email"
+          required
         ></b-form-input>
         <b-form-input
           v-model="password"
           class="mb-3"
           placeholder="Password"
           type="password"
+          required
         ></b-form-input>
         <b-button variant="outline-primary" pill @click="register"
           >Register</b-button

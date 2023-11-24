@@ -26,12 +26,18 @@ const login = async () => {
 <template>
   <div class="wrapper">
     <b-card title="Login" class="login shadow">
-      <b-form size="md" class="mb-3" prepend="Label" @submit.stop.prevent>
+      <b-form
+        size="md"
+        class="mb-3"
+        prepend="Label"
+        @submit.prevent="submitForm"
+      >
         <b-form-input
           v-model="email"
           class="mb-3"
           placeholder="Email"
           type="email"
+          required
         ></b-form-input>
         <b-form-input
           v-model="password"
